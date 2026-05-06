@@ -124,6 +124,27 @@ body {
   margin-top: 8px;
 }
 
+/* SOLD */
+.sold {
+  opacity: 0.5;
+  filter: grayscale(1);
+  pointer-events: none;
+}
+
+.sold::after {
+  content: "SOLD";
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: red;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
 /* POPUP QR */
 .payment {
   position: fixed;
@@ -155,14 +176,12 @@ body {
 
 <body>
 
-<!-- HEADER -->
 <div class="header">
   <h1>LIPZX STORE</h1>
   <h2>FF ID CANTIK</h2>
   <div class="sub">PENYETOKNYA ID CANTIK</div>
 </div>
 
-<!-- TAB -->
 <div class="tabs">
   <div class="tab active" onclick="filter('all', this)">Semua</div>
   <div class="tab" onclick="filter('basic', this)">Basic</div>
@@ -172,9 +191,9 @@ body {
 
 <div class="ready">READY STOCK</div>
 
-<!-- PRODUK -->
 <div class="container">
 
+<!-- NORMAL -->
 <div class="card basic">
   <div class="label">BASIC</div>
   <div class="id">15378999987</div>
@@ -182,11 +201,12 @@ body {
   <a class="btn" onclick="beli('15378999987','5000')">BELI</a>
 </div>
 
-<div class="card basic">
+<!-- SOLD -->
+<div class="card basic sold">
   <div class="label">BASIC</div>
   <div class="id">15337634242</div>
   <div class="price">Rp5.000</div>
-  <a class="btn" onclick="beli('15337634242','5000')">BELI</a>
+  <a class="btn">SOLD</a>
 </div>
 
 <div class="card rare">
@@ -196,11 +216,11 @@ body {
   <a class="btn" onclick="beli('15355729999','15000')">BELI</a>
 </div>
 
-<div class="card rare">
+<div class="card rare sold">
   <div class="label">RARE</div>
   <div class="id">15440777713</div>
   <div class="price">Rp15.000</div>
-  <a class="btn" onclick="beli('15440777713','15000')">BELI</a>
+  <a class="btn">SOLD</a>
 </div>
 
 <div class="card epic">
@@ -212,7 +232,7 @@ body {
 
 </div>
 
-<!-- QR POPUP -->
+<!-- QR -->
 <div class="payment" id="pay">
   <h2>Pembayaran QRIS</h2>
   <p id="info"></p>
