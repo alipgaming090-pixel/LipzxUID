@@ -9,15 +9,30 @@
 body {
   margin: 0;
   font-family: Arial;
-  background: #0b1220;
+  background: #050b18;
   color: white;
 }
 
-header {
+/* HEADER */
+.header {
   text-align: center;
   padding: 20px;
+}
+
+.header h1 {
+  margin: 0;
   font-size: 26px;
-  font-weight: bold;
+}
+
+.header h2 {
+  margin: 10px 0 0;
+  font-size: 22px;
+}
+
+.sub {
+  color: #38bdf8;
+  font-size: 12px;
+  letter-spacing: 2px;
 }
 
 /* TAB */
@@ -25,34 +40,72 @@ header {
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
 .tab {
   padding: 8px 18px;
   border-radius: 20px;
-  background: #1e293b;
+  background: #111827;
+  color: #aaa;
   cursor: pointer;
 }
 
 .tab.active {
   background: #38bdf8;
   color: black;
+  box-shadow: 0 0 15px #38bdf8;
+}
+
+/* READY */
+.ready {
+  padding: 10px 20px;
+  font-size: 12px;
+  color: #aaa;
+  letter-spacing: 2px;
 }
 
 /* GRID */
 .container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
   padding: 10px;
 }
 
+/* CARD */
 .card {
-  background: #111827;
+  background: #0f172a;
   border-radius: 12px;
-  padding: 15px;
+  padding: 12px;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* garis atas */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+}
+
+.basic::before { background: #22c55e; }
+.rare::before { background: #38bdf8; }
+.epic::before { background: #a855f7; }
+
+/* label */
+.label {
+  font-size: 10px;
+  color: #aaa;
+  margin-bottom: 5px;
+}
+
+.id {
+  font-size: 14px;
 }
 
 .price {
@@ -60,23 +113,24 @@ header {
   margin: 5px 0;
 }
 
+/* BUTTON */
 .btn {
-  background: white;
+  background: #e5e5e5;
   color: black;
   padding: 8px;
   border-radius: 8px;
   text-decoration: none;
   display: block;
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
-/* POPUP */
+/* POPUP QR */
 .payment {
   position: fixed;
   bottom: -100%;
   left: 0;
   width: 100%;
-  background: #111827;
+  background: #0f172a;
   padding: 20px;
   border-radius: 20px 20px 0 0;
   text-align: center;
@@ -101,45 +155,64 @@ header {
 
 <body>
 
-<header>LIPZX STORE</header>
+<!-- HEADER -->
+<div class="header">
+  <h1>LIPZX STORE</h1>
+  <h2>FF ID CANTIK</h2>
+  <div class="sub">PENYETOKNYA ID CANTIK</div>
+</div>
 
 <!-- TAB -->
 <div class="tabs">
   <div class="tab active" onclick="filter('all', this)">Semua</div>
   <div class="tab" onclick="filter('basic', this)">Basic</div>
   <div class="tab" onclick="filter('rare', this)">Rare</div>
+  <div class="tab" onclick="filter('epic', this)">Epic</div>
 </div>
+
+<div class="ready">READY STOCK</div>
 
 <!-- PRODUK -->
 <div class="container">
 
 <div class="card basic">
-  <div>15378999987</div>
+  <div class="label">BASIC</div>
+  <div class="id">15378999987</div>
   <div class="price">Rp5.000</div>
   <a class="btn" onclick="beli('15378999987','5000')">BELI</a>
 </div>
 
 <div class="card basic">
-  <div>15355729999</div>
+  <div class="label">BASIC</div>
+  <div class="id">15337634242</div>
   <div class="price">Rp5.000</div>
-  <a class="btn" onclick="beli('15355729999','5000')">BELI</a>
+  <a class="btn" onclick="beli('15337634242','5000')">BELI</a>
 </div>
 
 <div class="card rare">
-  <div>15533999909</div>
-  <div class="price">Rp25.000</div>
-  <a class="btn" onclick="beli('15533999909','25000')">BELI</a>
+  <div class="label">RARE</div>
+  <div class="id">15355729999</div>
+  <div class="price">Rp15.000</div>
+  <a class="btn" onclick="beli('15355729999','15000')">BELI</a>
 </div>
 
 <div class="card rare">
-  <div>15440777713</div>
+  <div class="label">RARE</div>
+  <div class="id">15440777713</div>
   <div class="price">Rp15.000</div>
   <a class="btn" onclick="beli('15440777713','15000')">BELI</a>
 </div>
 
+<div class="card epic">
+  <div class="label">EPIC</div>
+  <div class="id">15555558222</div>
+  <div class="price">Rp20.000</div>
+  <a class="btn" onclick="beli('15555558222','20000')">BELI</a>
 </div>
 
-<!-- POPUP QR -->
+</div>
+
+<!-- QR POPUP -->
 <div class="payment" id="pay">
   <h2>Pembayaran QRIS</h2>
   <p id="info"></p>
