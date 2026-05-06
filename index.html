@@ -109,22 +109,149 @@ header {
   <a class="btn" onclick="beli('15378999987','5000')">BELI</a>
 </div>
 
-<div class="card">
-  <div>15355729999</div>
-  <div class="price">Rp15.000</div>
-  <a class="btn" onclick="beli('15355729999','15000')">BELI</a>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIPZX STORE</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #0b1220;
+  color: white;
+}
+
+header {
+  text-align: center;
+  padding: 20px;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+/* TAB */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 8px 18px;
+  border-radius: 20px;
+  background: #1e293b;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: #38bdf8;
+  color: black;
+}
+
+/* GRID */
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 10px;
+}
+
+.card {
+  background: #111827;
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+}
+
+.price {
+  color: gold;
+  margin: 5px 0;
+}
+
+.btn {
+  background: white;
+  color: black;
+  padding: 8px;
+  border-radius: 8px;
+  text-decoration: none;
+  display: block;
+  margin-top: 10px;
+}
+
+/* POPUP */
+.payment {
+  position: fixed;
+  bottom: -100%;
+  left: 0;
+  width: 100%;
+  background: #111827;
+  padding: 20px;
+  border-radius: 20px 20px 0 0;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.payment.active {
+  bottom: 0;
+}
+
+.payment img {
+  width: 200px;
+  border-radius: 10px;
+}
+
+.konfirmasi {
+  background: #22c55e;
+  color: white;
+}
+</style>
+</head>
+
+<body>
+
+<header>LIPZX STORE</header>
+
+<!-- TAB -->
+<div class="tabs">
+  <div class="tab active" onclick="filter('all', this)">Semua</div>
+  <div class="tab" onclick="filter('basic', this)">Basic</div>
+  <div class="tab" onclick="filter('rare', this)">Rare</div>
 </div>
 
-<div class="card">
+<!-- PRODUK -->
+<div class="container">
+
+<div class="card basic">
+  <div>15378999987</div>
+  <div class="price">Rp5.000</div>
+  <a class="btn" onclick="beli('15378999987','5000')">BELI</a>
+</div>
+
+<div class="card basic">
+  <div>15355729999</div>
+  <div class="price">Rp5.000</div>
+  <a class="btn" onclick="beli('15355729999','5000')">BELI</a>
+</div>
+
+<div class="card rare">
   <div>15533999909</div>
   <div class="price">Rp25.000</div>
   <a class="btn" onclick="beli('15533999909','25000')">BELI</a>
 </div>
 
+<div class="card rare">
+  <div>15440777713</div>
+  <div class="price">Rp15.000</div>
+  <a class="btn" onclick="beli('15440777713','15000')">BELI</a>
 </div>
 
-<!-- PAYMENT QR -->
-<div class="payment" id="paymentBox">
+</div>
+
+<!-- POPUP QR -->
+<div class="payment" id="pay">
   <h2>Pembayaran QRIS</h2>
   <p id="info"></p>
 
@@ -132,23 +259,38 @@ header {
 
   <p>Scan QR lalu kirim bukti</p>
 
-  <a id="waBtn" class="btn konfirmasi">Konfirmasi ke Admin</a>
+  <a id="wa" class="btn konfirmasi">Konfirmasi ke Admin</a>
   <a class="btn" onclick="tutup()">Kembali</a>
 </div>
 
 <script>
-function beli(id, harga){
-  document.getElementById("paymentBox").classList.add("active");
+function filter(type, el){
+  let cards = document.querySelectorAll('.card');
+  let tabs = document.querySelectorAll('.tab');
 
+  tabs.forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+
+  cards.forEach(c => {
+    if(type === 'all'){
+      c.style.display = 'block';
+    } else {
+      c.style.display = c.classList.contains(type) ? 'block' : 'none';
+    }
+  });
+}
+
+function beli(id, harga){
+  document.getElementById("pay").classList.add("active");
   document.getElementById("info").innerText =
     "ID: " + id + " | Rp" + harga;
 
-  document.getElementById("waBtn").href =
+  document.getElementById("wa").href =
     "https://wa.me/6283822416101?text=Saya sudah bayar ID " + id + " Rp" + harga + ", ini bukti transfer";
 }
 
 function tutup(){
-  document.getElementById("paymentBox").classList.remove("active");
+  document.getElementById("pay").classList.remove("active");
 }
 </script>
 
