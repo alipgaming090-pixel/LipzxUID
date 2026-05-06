@@ -8,53 +8,85 @@
 <style>
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0f172a;
+  font-family: Arial;
+  background: #0b1220;
   color: white;
 }
 
 header {
   text-align: center;
   padding: 20px;
-  font-size: 28px;
+  font-size: 24px;
   font-weight: bold;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 8px 15px;
+  border-radius: 20px;
+  background: #1e293b;
 }
 
 .container {
-  padding: 15px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding: 10px;
 }
 
 .card {
-  background: #1e293b;
+  background: #111827;
   border-radius: 12px;
   padding: 15px;
-  margin-bottom: 15px;
+  text-align: center;
 }
 
-.id { font-size: 18px; font-weight: bold; }
-.harga { color: #38bdf8; margin-top: 5px; }
+.price {
+  color: gold;
+  margin: 5px 0;
+}
 
 .btn {
-  display: block;
-  text-align: center;
-  padding: 10px;
+  background: white;
+  color: black;
+  padding: 8px;
   border-radius: 8px;
-  margin-top: 10px;
   text-decoration: none;
-  font-weight: bold;
+  display: block;
+  margin-top: 10px;
 }
 
-.beli { background: #22c55e; }
-.konfirmasi { background: #f59e0b; }
-
-.qr {
+.payment {
+  position: fixed;
+  bottom: -100%;
+  left: 0;
+  width: 100%;
+  background: #111827;
+  padding: 20px;
+  border-radius: 20px 20px 0 0;
   text-align: center;
-  margin-top: 30px;
+  transition: 0.3s;
 }
 
-.qr img {
-  width: 220px;
+.payment.active {
+  bottom: 0;
+}
+
+.payment img {
+  width: 200px;
   border-radius: 10px;
+}
+
+.konfirmasi {
+  background: #22c55e;
+  color: white;
+  margin-top: 10px;
 }
 </style>
 </head>
@@ -63,40 +95,62 @@ header {
 
 <header>LIPZX STORE</header>
 
+<div class="tabs">
+  <div class="tab">Semua</div>
+  <div class="tab">Basic</div>
+  <div class="tab">Rare</div>
+</div>
+
 <div class="container">
 
-<!-- PRODUK -->
 <div class="card">
-  <div class="id">ID: 123456</div>
-  <div class="harga">Rp50.000</div>
-  <a class="btn beli" href="#qr">Beli Sekarang</a>
+  <div>15378999987</div>
+  <div class="price">Rp5.000</div>
+  <a class="btn" onclick="beli('15378999987','5000')">BELI</a>
 </div>
 
 <div class="card">
-  <div class="id">ID: 777777</div>
-  <div class="harga">Rp150.000</div>
-  <a class="btn beli" href="#qr">Beli Sekarang</a>
+  <div>15355729999</div>
+  <div class="price">Rp15.000</div>
+  <a class="btn" onclick="beli('15355729999','15000')">BELI</a>
 </div>
 
 <div class="card">
-  <div class="id">ID: 999999</div>
-  <div class="harga">Rp300.000</div>
-  <a class="btn beli" href="#qr">Beli Sekarang</a>
+  <div>15533999909</div>
+  <div class="price">Rp25.000</div>
+  <a class="btn" onclick="beli('15533999909','25000')">BELI</a>
 </div>
 
-<!-- QR + 1 KONFIRMASI -->
-<div class="qr" id="qr">
+</div>
+
+<!-- PAYMENT QR -->
+<div class="payment" id="paymentBox">
   <h2>Pembayaran QRIS</h2>
+  <p id="info"></p>
+
   <img src="qr.png">
-  <p>Scan QR lalu klik tombol di bawah</p>
 
-  <a class="btn konfirmasi"
-  href="https://wa.me/6283822416101?text=Saya%20sudah%20bayar%2C%20ini%20bukti%20transfer">
-  Konfirmasi Pembayaran
-  </a>
+  <p>Scan QR lalu kirim bukti</p>
+
+  <a id="waBtn" class="btn konfirmasi">Konfirmasi ke Admin</a>
+  <a class="btn" onclick="tutup()">Kembali</a>
 </div>
 
-</div>
+<script>
+function beli(id, harga){
+  document.getElementById("paymentBox").classList.add("active");
+
+  document.getElementById("info").innerText =
+    "ID: " + id + " | Rp" + harga;
+
+  document.getElementById("waBtn").href =
+    "https://wa.me/6283822416101?text=Saya sudah bayar ID " + id + " Rp" + harga + ", ini bukti transfer";
+}
+
+function tutup(){
+  document.getElementById("paymentBox").classList.remove("active");
+}
+</script>
 
 </body>
 </html>
